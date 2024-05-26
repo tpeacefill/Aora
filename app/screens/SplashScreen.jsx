@@ -1,14 +1,23 @@
-import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Image, StyleSheet } from 'react-native';
 import AoraLogo from '../../assets/Images/AoraLogo.png';
 
-const SplashScreen = () => {
+const SplashScreen = ({ navigation }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('Onboarding');
+    }, 5000); // 5 seconds
+
+    // Clean up the timer on component unmount
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <Image source={AoraLogo} style={styles.logo} resizeMode="contain" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -25,3 +34,4 @@ const styles = StyleSheet.create({
 });
 
 export default SplashScreen;
+
