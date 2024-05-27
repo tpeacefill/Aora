@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SplashScreen from './app/screens/SplashScreen';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen'; // Import SplashScreen from expo-splash-screen
+import AppLoading from 'expo-app-loading';
+import SplashScreenScreen from './app/screens/SplashScreen';
 import Onboarding from './app/screens/Onboarding';
 import Tabs from './app/screens/(tabs)/_layout';
 
@@ -12,14 +15,24 @@ export default function App() {
 
   const loadFonts = async () => {
     await Font.loadAsync({
-      Poppins: require('assets/Fonts/Poppins/Poppins-Regular.ttf'),
+      Poppins: require('./assets/Fonts/Poppins/Poppins-Regular.ttf'),
       // Add other font variants if needed
     });
     setFontsLoaded(true);
   };
 
   useEffect(() => {
+    SplashScreen.preventAutoHideAsync() // Use preventAutoHideAsync from SplashScreen
+      .catch(error => {
+        console.warn(error);
+      });
     loadFonts();
+    return () => {
+      SplashScreen.hideAsync() // Use hideAsync from SplashScreen
+        .catch(error => {
+          console.warn(error);
+        });
+    };
   }, []);
 
   if (!fontsLoaded) {
@@ -31,7 +44,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen
           name="SplashScreen"
-          component={SplashScreen}
+          component={SplashScreenScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
