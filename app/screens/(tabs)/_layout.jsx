@@ -1,4 +1,5 @@
 import React from 'react';
+import { Tabs } from 'expo-router';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import Profile from './Profile';
@@ -7,7 +8,7 @@ import Bookmark from './Bookmark';
 
 const TabsLayout = createBottomTabNavigator();
 
-const Tabs = () => {
+const TabsNavigator = () => {
   return (
     <TabsLayout.Navigator>
       <TabsLayout.Screen name="Home" component={Home} />
@@ -18,4 +19,4 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default TabsNavigator;
