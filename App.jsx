@@ -8,6 +8,24 @@ import Tabs from './app/screens/(tabs)/_layout';
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      Poppins: require('assets/Fonts/Poppins/Poppins-Regular.ttf'),
+      // Add other font variants if needed
+    });
+    setFontsLoaded(true);
+  };
+
+  useEffect(() => {
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">
@@ -22,7 +40,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Tabs"
+          name="TabsLayout"
           component={Tabs}
           options={{ headerShown: false }}
         />
