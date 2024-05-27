@@ -1,14 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Create = () => {
   return (
-    <View>
-      <Text>Create</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Create Screen</Text>
     </View>
-  )
-}
+  );
+};
 
-export default Create
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
+  },
+});
 
-const styles = StyleSheet.create({})
+export default Create;

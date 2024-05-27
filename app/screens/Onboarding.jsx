@@ -1,12 +1,20 @@
 // Onboarding.jsx
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 
-const Onboarding = () => {
+import React, { useEffect } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+
+const Onboarding = ({ navigation }) => {
+  useEffect(() => {
+    // Navigate to Tabs after a delay or based on a button press
+  }, [navigation]);
   return (
     <View style={styles.container}>
-      <Text>Onboarding Screen</Text>
-    </View>
+    <Text style={styles.text}>Onboarding Screen</Text>
+    <Button
+      title="Continue to App"
+      onPress={() => navigation.replace('Tabs')}
+    />
+  </View>
   );
 };
 
@@ -16,6 +24,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#161622',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
   },
 });
 
