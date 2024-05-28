@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import AoraLogo from '../../assets/Images/AoraLogo.png';
 
 const SplashScreen = ({ navigation }) => {
@@ -13,16 +14,21 @@ const SplashScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <Image source={AoraLogo} style={styles.logo} resizeMode="contain" />
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Image source={AoraLogo} style={styles.logo} resizeMode="contain" />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: '#161622',
+  },
+  container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -34,4 +40,3 @@ const styles = StyleSheet.create({
 });
 
 export default SplashScreen;
-

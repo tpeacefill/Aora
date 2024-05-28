@@ -27,7 +27,12 @@ const Onboarding = ({ navigation }) => {
       // Unsubscribe from dimension changes when component unmounts
       Dimensions.removeEventListener('change', dimensionChangeHandler);
     };
-  }, [navigation]);
+  }, []);
+
+  const calculateFontSize = (baseSize) => {
+    const scale = screenWidth / 375; // 375 is a base width for scaling
+    return Math.round(baseSize * scale);
+  };
 
   // Calculate the position of the Stroke image based on the screen width
   const strokeImagePosition = {
@@ -52,10 +57,10 @@ const Onboarding = ({ navigation }) => {
             source={OnboardingImage}
           />
           <View style={styles.onboardingTextContainer}>
-            <Text style={styles.onboardingText}>DiscoverEndless</Text>
-            <Text style={styles.onboardingText}>
+            <Text style={[styles.onboardingText, { fontSize: calculateFontSize(30), lineHeight: calculateFontSize(36) }]}>DiscoverEndless</Text>
+            <Text style={[styles.onboardingText, { fontSize: calculateFontSize(30), lineHeight: calculateFontSize(36) }]}>
               Possibilities with{' '}
-              <Text style={[styles.onboardingText, { color: '#FF8E01' }]}>Aora</Text>
+              <Text style={{ color: '#FF8E01' }}>Aora</Text>
             </Text>
           </View>
           {/* Position the Stroke image absolutely under the word "Aora" */}
@@ -64,17 +69,13 @@ const Onboarding = ({ navigation }) => {
             source={StrokeImage}
           />
         </View>
-        <Text style={styles.additionalText}>
-  Where Creativity Meets Innovation: Embark on a Journey of Limitless Exploration with Aora
-</Text>
-<CustomButton
-  title="Continue with Email"
-  handlePress={() => navigation.navigate('AuthLayout')}
-/>
-
-
-
-        {/* Add any additional content here */}
+        <Text style={[styles.additionalText, { fontSize: calculateFontSize(14), lineHeight: calculateFontSize(22.4) }]}>
+          Where Creativity Meets Innovation: Embark on a Journey of Limitless Exploration with Aora
+        </Text>
+        <CustomButton
+          title="Continue with Email"
+          handlePress={() => navigation.navigate('AuthLayout')}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -87,14 +88,14 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 2,
   },
   logoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    paddingTop: 1, // Add some padding to the top if needed
     position: 'relative', // Make the container relative to position absolutely
   },
   logo: {
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     height: undefined,
     resizeMode: 'contain',
     aspectRatio: 1,
-    marginBottom: 1, // Adjust this value to reduce the space
+    marginBottom: 2, // Adjust this value to reduce the space
   },
   onboardingImage: {
     width: '100%',
@@ -112,29 +113,26 @@ const styles = StyleSheet.create({
   },
   onboardingTextContainer: {
     alignItems: 'center',
-    marginTop: 1,
+    marginTop: 2,
   },
   onboardingText: {
     fontFamily: 'Poppins-Bold', 
-    fontSize: 30,
     fontWeight: '600',
-    lineHeight: 36,
     letterSpacing: -1,
     color: '#FFFFFF',
     textAlign: 'center',
   },
   additionalText: {
     fontFamily: 'Poppins',
-    fontSize: 14,
     fontWeight: '400',
-    lineHeight: 22.4,
     textAlign: 'center',
     color: '#CDCDE0', // Adjust color as needed
     marginTop: 10,
-    marginBottom: 50,
-  }
-  
- 
+    marginBottom: 20,
+  },
+  strokeImage: {
+    // Position the Stroke image absolutely under the word "Aora"
+  },
 });
 
 export default Onboarding;
