@@ -12,17 +12,17 @@ const Onboarding = ({ navigation }) => {
 
   useEffect(() => {
     Font.loadAsync({
-      'Poppins-Bold': require('../../assets/Fonts/Poppins/Poppins-Black.ttf'),
+      'Poppins-Bold': require('../../assets/Fonts/Poppins/Poppins-Regular.ttf'),
     });
 
     const dimensionChangeHandler = ({ window }) => {
       setScreenWidth(window.width);
     };
 
-    Dimensions.addEventListener('change', dimensionChangeHandler);
+    const subscription = Dimensions.addEventListener('change', dimensionChangeHandler);
 
     return () => {
-      Dimensions.removeEventListener('change', dimensionChangeHandler);
+      subscription?.remove();
     };
   }, []);
 
@@ -70,7 +70,7 @@ const Onboarding = ({ navigation }) => {
         </Text>
         <CustomButton
           title="Continue with Email"
-          handlePress={() => navigation.navigate('AuthLayout')}
+          handlePress={() => navigation.navigate('SignUp')} // Correct the screen name here
         />
       </ScrollView>
     </SafeAreaView>
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     position: 'relative',
+    minHeight: '85vh',
   },
   logo: {
     width: '30%',
