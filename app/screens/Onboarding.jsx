@@ -67,7 +67,8 @@ const Onboarding = ({ navigation }) => {
         <Text style={styles.additionalText}>
   Where Creativity Meets Innovation: Embark on a Journey of Limitless Exploration with Aora
 </Text>
-<CustomButton/>
+<CustomButton title="Continue with Email" />
+
 
         {/* Add any additional content here */}
       </ScrollView>
