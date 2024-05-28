@@ -3,11 +3,7 @@ import React from 'react';
 
 const CustomButton = ({ title, handlePress, isLoading }) => {
   return (
-    <TouchableOpacity
-      style={[styles.button, isLoading && styles.buttonDisabled]}
-      onPress={!isLoading ? handlePress : null}
-      disabled={isLoading}
-    >
+    <TouchableOpacity style={styles.button} onPress={handlePress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );

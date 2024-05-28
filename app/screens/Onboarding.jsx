@@ -67,7 +67,11 @@ const Onboarding = ({ navigation }) => {
         <Text style={styles.additionalText}>
   Where Creativity Meets Innovation: Embark on a Journey of Limitless Exploration with Aora
 </Text>
-<CustomButton title="Continue with Email" />
+<CustomButton
+  title="Continue with Email"
+  handlePress={() => navigation.navigate('AuthLayout')}
+/>
+
 
 
         {/* Add any additional content here */}
