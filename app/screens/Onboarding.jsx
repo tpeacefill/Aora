@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet, ScrollView, Text, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, ScrollView, Text, Dimensions, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AoraLogo from '../../assets/Images/AoraLogo.png';
 import OnboardingImage from '../../assets/Images/OnboardingImage.png';
-import StrokeImage from '../../assets/Images/Stroke.png'; // Import the Stroke image
+import StrokeImage from '../../assets/Images/Stroke.png';
 import * as Font from 'expo-font';
 import CustomButton from '../../Components/CustomButton';
 
@@ -11,41 +11,38 @@ const Onboarding = ({ navigation }) => {
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
 
   useEffect(() => {
-    // Load the Poppins-Bold font
     Font.loadAsync({
       'Poppins-Bold': require('../../assets/Fonts/Poppins/Poppins-Black.ttf'),
     });
 
-    // Subscribe to dimension changes
-    const dimensionChangeHandler = (newDimensions) => {
-      setScreenWidth(newDimensions.window.width);
+    const dimensionChangeHandler = ({ window }) => {
+      setScreenWidth(window.width);
     };
 
     Dimensions.addEventListener('change', dimensionChangeHandler);
 
     return () => {
-      // Unsubscribe from dimension changes when component unmounts
       Dimensions.removeEventListener('change', dimensionChangeHandler);
     };
   }, []);
 
   const calculateFontSize = (baseSize) => {
-    const scale = screenWidth / 375; // 375 is a base width for scaling
+    const scale = screenWidth / 375; // Base width for scaling
     return Math.round(baseSize * scale);
   };
 
-  // Calculate the position of the Stroke image based on the screen width
   const strokeImagePosition = {
     position: 'absolute',
-    bottom: -18, // Adjust the position as needed
-    width: screenWidth * 0.3, // Set the width to 30% of the screen width
+    bottom: -18,
+    width: screenWidth * 0.3,
     resizeMode: 'contain',
     aspectRatio: 1,
-    right: screenWidth * 0.05, // Set the right position to 5% of the screen width
+    right: screenWidth * 0.05,
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#161622" barStyle="light-content" />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.logoContainer}>
           <Image 
@@ -57,15 +54,14 @@ const Onboarding = ({ navigation }) => {
             source={OnboardingImage}
           />
           <View style={styles.onboardingTextContainer}>
-            <Text style={[styles.onboardingText, { fontSize: calculateFontSize(30), lineHeight: calculateFontSize(36) }]}>DiscoverEndless</Text>
+            <Text style={[styles.onboardingText, { fontSize: calculateFontSize(30), lineHeight: calculateFontSize(36) }]}>Discover Endless</Text>
             <Text style={[styles.onboardingText, { fontSize: calculateFontSize(30), lineHeight: calculateFontSize(36) }]}>
               Possibilities with{' '}
               <Text style={{ color: '#FF8E01' }}>Aora</Text>
             </Text>
           </View>
-          {/* Position the Stroke image absolutely under the word "Aora" */}
           <Image 
-            style={[styles.strokeImage, strokeImagePosition]} // Apply the calculated position
+            style={[styles.strokeImage, strokeImagePosition]} 
             source={StrokeImage}
           />
         </View>
@@ -96,14 +92,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    position: 'relative', // Make the container relative to position absolutely
+    position: 'relative',
   },
   logo: {
     width: '30%',
     height: undefined,
     resizeMode: 'contain',
     aspectRatio: 1,
-    marginBottom: 2, // Adjust this value to reduce the space
+    marginBottom: 2,
   },
   onboardingImage: {
     width: '100%',
@@ -126,7 +122,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
     fontWeight: '400',
     textAlign: 'center',
-    color: '#CDCDE0', // Adjust color as needed
+    color: '#CDCDE0',
     marginTop: 10,
     marginBottom: 20,
   },

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AoraLogo from '../../assets/Images/AoraLogo.png';
 
@@ -15,6 +15,7 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <StatusBar backgroundColor="#161622" barStyle="light-content" />
       <View style={styles.container}>
         <Image source={AoraLogo} style={styles.logo} resizeMode="contain" />
       </View>
