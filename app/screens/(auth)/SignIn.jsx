@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     lineHeight: 31.9,
     letterSpacing: -1,
     color: '#FFFFFF',
-    marginTop: 20,
+    marginTop: 40,
     marginBottom: 30,
   },
   redirectLogin: {
