@@ -6,7 +6,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import SplashScreenScreen from './app/screens/SplashScreen';
 import Onboarding from './app/screens/Onboarding';
 import Tabs from './app/screens/(tabs)/_layout';
-import SignUp from './app/screens/(auth)/Sign-Up'; // Import the SignUp screen
+import SignUp from './app/screens/(auth)/SignUp'; // Import the SignUp screen
+import SignIn from './app/screens/(auth)/SignIn';
 
 const Stack = createStackNavigator();
 
@@ -61,6 +62,11 @@ export default function App() {
         <Stack.Screen
           name="SignUp" // Add the SignUp screen to the navigator
           component={SignUp}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="SignIn" // Add the SignUp screen to the navigator
+          component={SignIn}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

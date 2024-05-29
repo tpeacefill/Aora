@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native';
@@ -6,12 +6,12 @@ import Logo from '../../../assets/Images/AoraLogo.png';
 import FormField from '../../../Components/FormField';
 import CustomButton from '../../../Components/CustomButton';
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
   const [form, setForm] = useState({
     Username: '',
     Email: '',
     Password: '',
-    showPassword: false, // added state to manage password visibility
+    showPassword: false,
   });
 
   const handleInputChange = (field, value) => {
@@ -23,6 +23,11 @@ const SignUp = () => {
 
   const togglePasswordVisibility = () => {
     setForm({ ...form, showPassword: !form.showPassword });
+  };
+
+  const handleLoginNavigation = () => {
+    // Navigate to the SignIn screen
+    navigation.navigate('SignIn');
   };
 
   return (
@@ -59,10 +64,12 @@ const SignUp = () => {
           title="Sign Up"
           handlePress={() => console.log('Sign Up pressed', form)}
         />
-        <Text style={styles.redirectLogin}>
-          Already have an account?{' '}
-          <Text style={styles.loginText}>Login</Text>
-        </Text>
+        <TouchableOpacity onPress={handleLoginNavigation}>
+          <Text style={styles.redirectLogin}>
+            Already have an account?{' '}
+            <Text style={styles.loginText}>Login</Text>
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -88,7 +95,7 @@ const styles = StyleSheet.create({
   signupText: {
     fontFamily: 'Poppins',
     fontSize: 22,
-    fontWeight: 'bold', // Changed to bold
+    fontWeight: 'bold',
     lineHeight: 31.9,
     letterSpacing: -1,
     color: '#FFFFFF',
@@ -107,7 +114,7 @@ const styles = StyleSheet.create({
   loginText: {
     fontFamily: 'Poppins',
     fontSize: 14,
-    fontWeight: 'bold', // Changed to bold
+    fontWeight: 'bold',
     lineHeight: 20.3,
     textAlign: 'center',
     color: '#FF9001',
