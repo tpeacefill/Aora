@@ -1,17 +1,68 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native';
 import Logo from '../../../assets/Images/AoraLogo.png';
+import FormField from '../../../Components/FormField';
+import CustomButton from '../../../Components/CustomButton';
 
 const SignUp = () => {
+  const [form, setForm] = useState({
+    Username: '',
+    Email: '',
+    Password: '',
+    showPassword: false, // added state to manage password visibility
+  });
+
+  const handleInputChange = (field, value) => {
+    setForm({
+      ...form,
+      [field]: value,
+    });
+  };
+
+  const togglePasswordVisibility = () => {
+    setForm({ ...form, showPassword: !form.showPassword });
+  };
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <ScrollView>
         <View style={styles.viewContainer}>
-          <Image source={Logo} style={styles.logo}/>
+          <Image source={Logo} style={styles.logo} />
           <Text style={styles.signupText}>Sign Up</Text>
+          <FormField
+            title="Username"
+            value={form.Username}
+            handleChangeText={(value) => handleInputChange('Username', value)}
+            otherStyles={{ marginTop: 7 }}
+            placeholder="Enter your username"
+          />
+          <FormField
+            title="Email"
+            value={form.Email}
+            handleChangeText={(value) => handleInputChange('Email', value)}
+            otherStyles={{ marginTop: 7 }}
+            keyboardType="email-address"
+            placeholder="Enter your email"
+          />
+          <FormField
+            title="Password"
+            value={form.Password}
+            handleChangeText={(value) => handleInputChange('Password', value)}
+            otherStyles={{ marginTop: 7 }}
+            secureTextEntry={!form.showPassword}
+            placeholder="Enter your password"
+          />
         </View>
+        <CustomButton
+          title="Sign Up"
+          handlePress={() => console.log('Sign Up pressed', form)}
+        />
+        <Text style={styles.redirectLogin}>
+          Already have an account?{' '}
+          <Text style={styles.loginText}>Login</Text>
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -23,25 +74,43 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   viewContainer: {
-    width: '100%',           // full width
-    minHeight: '85%',        // min-height of 85% viewport height
-    justifyContent: 'center',// center content vertically
-    paddingHorizontal: 16,   // padding left and right (px-4 in Tailwind)
-    marginVertical: 24,      // margin top and bottom (my-6 in Tailwind)
+    width: '100%',
+    minHeight: '65%',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    marginVertical: 24,
   },
   logo: {
     width: 115,
-    height: 34.07,      
-    resizeMode: 'contain',     // sets opacity to 0, making the image invisible
+    height: 34.07,
+    resizeMode: 'contain',
   },
   signupText: {
-    fontFamily: 'Poppins',      
-    fontSize: 22,               
-    fontWeight: '600',          
-    lineHeight: 31.9,           
-    letterSpacing: -1,         
-    color: '#FFFFFF', 
+    fontFamily: 'Poppins',
+    fontSize: 22,
+    fontWeight: 'bold', // Changed to bold
+    lineHeight: 31.9,
+    letterSpacing: -1,
+    color: '#FFFFFF',
     marginTop: 20,
+    marginBottom: 30,
+  },
+  redirectLogin: {
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 20.3,
+    textAlign: 'center',
+    color: '#CDCDE0',
+    marginTop: 30,
+  },
+  loginText: {
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    fontWeight: 'bold', // Changed to bold
+    lineHeight: 20.3,
+    textAlign: 'center',
+    color: '#FF9001',
   },
 });
 
