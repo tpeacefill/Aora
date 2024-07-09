@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, TextInput, Image, TouchableOpacity } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
@@ -7,11 +7,28 @@ import Logo2 from "../../../assets/Images/logo2.png";
 import carouselImage from "../../../assets/Images/Card.png";
 import carouselImage1 from "../../../assets/Images/Card2.png";
 import carouselImage3 from "../../../assets/Images/Card3.png";
+import Avatar from "../../../assets/Images/avatar.png";
+import Avatar1 from "../../../assets/Images/avatar2.png";
+import Video from "../../../assets/Images/video.png";
+import Video1 from "../../../assets/Images/video1.png";
+import Card from "../../../Components/VideoCard";
 
 const Home = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const scrollViewRef = useRef(null);
 
-  const images = [carouselImage, carouselImage1, carouselImage3, carouselImage, carouselImage1];
+  const images = [
+    carouselImage,
+    carouselImage1,
+    carouselImage3,
+    carouselImage,
+    carouselImage1,
+  ];
+
+  const handleImageButtonPress = (index) => {
+    setSelectedImage(index);
+    scrollViewRef.current?.scrollTo({ x: index * 160, animated: true }); // Adjust the offset value based on image width and margin
+  };
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -35,37 +52,63 @@ const Home = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.horizontalCarousel}>
-          <Text style={styles.carouselText}>Trending Videos</Text>
-          <View style={styles.carouselContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {images.map((image, index) => (
-                <Image
-                  key={index}
-                  source={image}
-                  style={[
-                    styles.carouselImage,
-                    selectedImage === index && styles.selectedCarouselImage,
-                  ]}
-                />
-              ))}
-            </ScrollView>
-          </View>
-          <View style={styles.carouselImageButtons}>
-            {images.map((image, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[
-                  styles.imageButton,
-                  selectedImage === index && styles.selectedImageButton,
-                ]}
-                onPress={() => setSelectedImage(index)}
+
+        <ScrollView style={styles.appContainer}>
+          <View style={styles.horizontalCarousel}>
+            <Text style={styles.carouselText}>Trending Videos</Text>
+            <View style={styles.carouselContainer}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                ref={scrollViewRef}
               >
-                <View style={styles.imageButtonColor} />
-              </TouchableOpacity>
-            ))}
+                {images.map((image, index) => (
+                  <Image
+                    key={index}
+                    source={image}
+                    style={[
+                      styles.carouselImage,
+                      selectedImage === index && styles.selectedCarouselImage,
+                    ]}
+                  />
+                ))}
+              </ScrollView>
+            </View>
+            <View style={styles.carouselImageButtons}>
+              {images.map((image, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.imageButton,
+                    selectedImage === index && styles.selectedImageButton,
+                  ]}
+                  onPress={() => handleImageButtonPress(index)}
+                >
+                  <View
+                    style={[
+                      styles.imageButtonColor,
+                      selectedImage === index &&
+                        styles.selectedImageButtonColor,
+                    ]}
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
-        </View>
+
+          <Card
+            avatarSource={Avatar}
+            videoSource={Video}
+            title="Woman walks down a Tokyo..."
+            author="Brandon Etter"
+          />
+          <Card
+            avatarSource={Avatar1}
+            videoSource={Video1}
+            title="Woman walks down a Tokyo..."
+            author="Brandon Etter"
+          />
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -87,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerContainer: {
-    width: "85%",
+    width: "90%",
     flexDirection: "row",
     alignItems: "center", // Optional: to align items vertically in the center
     justifyContent: "space-between",
@@ -96,6 +139,11 @@ const styles = StyleSheet.create({
   headerText: {
     flexDirection: "column",
     marginRight: 10, // Optional: to add some space between text and image
+  },
+  appContainer: {
+    width: "100%",
+    marginTop: 20,
+    marginBottom: 120,
   },
   welcome: {
     fontFamily: "Poppins",
@@ -112,7 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   searchContainer: {
-    width: "85%",
+    width: "90%",
     marginTop: 20,
   },
   searchBar: {
@@ -138,7 +186,7 @@ const styles = StyleSheet.create({
   },
   horizontalCarousel: {
     marginTop: 40,
-    width: "85%", // Adjust the width to match the container
+    width: "96%", // Adjust the width to match the container
   },
   carouselText: {
     alignSelf: "flex-start",
@@ -147,6 +195,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
     marginBottom: 20,
+    paddingLeft: 20,
   },
   carouselContainer: {
     flexDirection: "row",
@@ -167,8 +216,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   imageButton: {
-    width: 10,
-    height: 10,
+    width: 8,
+    height: 8,
     borderRadius: 25,
     overflow: "hidden",
     marginRight: 10,
@@ -177,8 +226,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectedImageButton: {
-    width: 20,
-    height: 10,
+    width: 17,
+    height: 8,
     borderRadius: 25,
     backgroundColor: "#FFA101",
   },
@@ -186,6 +235,48 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     backgroundColor: "#7B7B8B",
+  },
+  selectedImageButtonColor: {
+    backgroundColor: "#FFA101",
+  },
+  nameLabel: {
+    fontFamily: "Poppins",
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
+    lineHeight: 21,
+  },
+  cardContainer: {
+    width: "90%",
+    marginTop: 30,
+    alignSelf: "center", // This will center the cardContainer within the appContainer
+    marginBottom: 20,
+  },
+  cardHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+    justifyContent: "space-between",
+  },
+  cardHeadText: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  cardBody: {
+    width: "100%",
+  },
+  cardImage: {
+    width: "100%",
+    height: undefined,
+    aspectRatio: 16 / 10, // Adjust this ratio based on the actual aspect ratio of your image
+    alignSelf: "center",
   },
 });
 
