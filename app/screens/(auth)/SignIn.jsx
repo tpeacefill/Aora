@@ -26,8 +26,14 @@ const SignIn = ({ navigation }) => {
   };
 
   const handleLoginNavigation = () => {
-    // Navigate to the SignIn screen
+    // Navigate to the SignUp screen
     navigation.navigate('SignUp');
+  };
+
+  const handleSignIn = () => {
+    console.log('Sign In pressed', form);
+    // Navigate to the Tabs page
+    navigation.navigate('TabsLayout');
   };
 
   return (
@@ -56,7 +62,8 @@ const SignIn = ({ navigation }) => {
         </View>
         <CustomButton
           title="Sign In"
-          handlePress={() => console.log('Sign In pressed', form)}
+          handlePress={handleSignIn}
+          navigation={navigation} // Pass the navigation prop
         />
         <TouchableOpacity onPress={handleLoginNavigation}>
           <Text style={styles.redirectLogin}>

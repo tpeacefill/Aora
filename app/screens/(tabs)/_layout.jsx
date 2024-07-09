@@ -24,7 +24,8 @@ const Tabs = () => {
         name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({ focused }) => <Icons.Home focused={focused} />
+          tabBarIcon: ({ focused }) => <Icons.Home focused={focused} />,
+          headerShown: false,
         }}
       />
       <TabsLayout.Screen
