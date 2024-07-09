@@ -32,21 +32,24 @@ const Tabs = () => {
         name="Create"
         component={Create}
         options={{
-          tabBarIcon: ({ focused }) => <Icons.Create focused={focused} />
+          tabBarIcon: ({ focused }) => <Icons.Create focused={focused} />,
+          headerShown: false,
         }}
       />
       <TabsLayout.Screen
         name="Bookmark"
         component={Bookmark}
         options={{
-          tabBarIcon: ({ focused }) => <Icons.Bookmark focused={focused} />
+          tabBarIcon: ({ focused }) => <Icons.Bookmark focused={focused} />,
+          headerShown: false,
         }}
       />
       <TabsLayout.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({ focused }) => <Icons.Profile focused={focused} />
+          tabBarIcon: ({ focused }) => <Icons.Profile focused={focused} />,
+          headerShown: false,
         }}
       />
     </TabsLayout.Navigator>
