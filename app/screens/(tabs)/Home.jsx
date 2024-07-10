@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     padding: 3,
   },
   horizontalCarousel: {
-    marginTop: 40,
+    marginTop: 20,
     width: "96%", // Adjust the width to match the container
   },
   carouselText: {

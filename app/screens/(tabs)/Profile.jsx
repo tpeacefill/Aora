@@ -119,8 +119,9 @@ const styles = StyleSheet.create({
   },
   postsTextsmall: {
     fontFamily: "Poppins",
-    color: "#FFFFFF",
-    fontSize: 12,
+    color: "#CDCDE0",
+    fontSize: 14,
+    fontWeight: "light",
   },
   searchImage: {
     width: 200,
