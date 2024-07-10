@@ -1,17 +1,23 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView } from "react-native";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProfilePic from "../../../assets/Images/profile.png";
 import SearchImage from "../../../assets/Images/EmptyState.png";
 import CustomButton from "../../../Components/CustomButton";
 
-const Profile = ({ navigation }) => { // Ensure navigation is received as a prop
+const Profile = ({ navigation }) => {
+  // Ensure navigation is received as a prop
 
   const handleExplore = () => {
     // Navigate to Home page
-    navigation.navigate('Home');
+    navigation.navigate("Home");
+  };
+
+  const handleSignout = () => {
+    // Navigate to Sign In page
+    navigation.navigate("SignIn");
+    console.log("Sign out pressed");
   };
 
   return (
@@ -19,7 +25,14 @@ const Profile = ({ navigation }) => { // Ensure navigation is received as a prop
       <View style={styles.viewContainer}>
         <View style={styles.headerContainer}>
           <View style={{ flex: 1 }} />
-          <Ionicons name="log-out-outline" size={30} color="#ffffff" style={styles.logoutIcon} />
+          <TouchableOpacity onPress={handleSignout}>
+            <Ionicons
+              name="log-out-outline"
+              size={30}
+              color="#ffffff"
+              style={styles.logoutIcon}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.profileContainer}>
           <Image source={ProfilePic} style={styles.profile} />
@@ -37,7 +50,9 @@ const Profile = ({ navigation }) => { // Ensure navigation is received as a prop
           <Image source={SearchImage} style={styles.searchImage} />
           <View style={styles.noVideosContainer}>
             <Text style={styles.noVideosSubText}>No videos Found</Text>
-            <Text style={styles.noVideosText}>No videos found for this profile</Text>
+            <Text style={styles.noVideosText}>
+              No videos found for this profile
+            </Text>
           </View>
           <CustomButton
             title="Back to Explore"
