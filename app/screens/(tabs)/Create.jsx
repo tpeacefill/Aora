@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   uploadBox1ASub: {
     flexDirection: "row",
-    width: "50%",
+    width: "45%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#2C2C38",
@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
   thumbnailImage: {
-    width: 30,
-    height: 30,
+    width: 24,
+    height: 24,
   },
   chooseFileText: {
     flex: 1,
