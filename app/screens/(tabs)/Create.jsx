@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TextInput, Image, StyleSheet, Text, View } from "react-native";
+import { TextInput, Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import * as DocumentPicker from 'expo-document-picker';
 import VideoUpload from "../../../assets/Images/videoUpload.png";
 import ImageUpload from "../../../assets/Images/imageUpload.png";
 import CustomButton from "../../../Components/CustomButton";
 
 const Create = () => {
+  const [video, setVideo] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
+
+  const handleVideoUpload = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: 'video/*',
+      });
+      if (result.type === 'success') {
+        setVideo(result);
+        console.log(result);
+      }
+    } catch (err) {
+      console.log('Error:', err);
+    }
+  };
+
+  const handleImageUpload = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: 'image/*',
+      });
+      if (result.type === 'success') {
+        setThumbnail(result);
+        console.log(result);
+      }
+    } catch (err) {
+      console.log('Error:', err);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <View style={styles.viewContainer}>
@@ -24,21 +56,23 @@ const Create = () => {
         </View>
         <View style={styles.inputContainer1}>
           <Text style={styles.label}>Upload Video</Text>
-          <View style={styles.uploadBox}>
+          <TouchableOpacity style={styles.uploadBox} onPress={handleVideoUpload}>
             <Image source={VideoUpload} style={styles.uploadImage} />
-          </View>
+          </TouchableOpacity>
+          {video && <Text style={styles.fileName}>{video.name}</Text>}
         </View>
         <View style={styles.inputContainer2}>
           <Text style={styles.label}>Thumbnail Image</Text>
-          <View style={styles.uploadBox1}>
+          <TouchableOpacity style={styles.uploadBox1} onPress={handleImageUpload}>
             <View style={styles.uploadBox1ASub}>
               <Image source={ImageUpload} style={styles.thumbnailImage} />
               <Text style={styles.chooseFileText}>Choose a file</Text>
             </View>
-          </View>
+          </TouchableOpacity>
+          {thumbnail && <Text style={styles.fileName}>{thumbnail.name}</Text>}
         </View>
         <View style={styles.inputContainer3}>
-          <Text style={styles.label}>Thumbnail Image</Text>
+          <Text style={styles.label}>AI Prompt</Text>
           <View style={styles.uploadBox1}>
             <TextInput
               style={styles.input}
@@ -47,9 +81,7 @@ const Create = () => {
             />
           </View>
         </View>
-        <CustomButton
-          title="Submit & Publish"
-        />
+        <CustomButton title="Submit & Publish" />
       </View>
     </SafeAreaView>
   );
@@ -167,6 +199,12 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     fontSize: 14,
     textAlign: "center",
+  },
+  fileName: {
+    color: "#CDCDE0",
+    fontFamily: "Poppins",
+    fontSize: 14,
+    marginTop: 5,
   },
 });
 
